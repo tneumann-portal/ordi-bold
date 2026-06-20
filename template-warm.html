@@ -1,0 +1,582 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Nunito+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@2.44.0/tabler-icons.min.css">
+<script src="config.js"></script>
+<style>
+  :root {
+    --rose:        #b85c6e;
+    --rose-deep:   #8a3f51;
+    --rose-light:  #f7eef0;
+    --rose-mist:   #fdf5f6;
+    --terra:       #c17f5a;
+    --sand:        #e8dcc8;
+    --olive:       #6b7c5a;
+    --warm:        #faf6f0;
+    --warm-dark:   #f0e8da;
+    --stone:       #2e2620;
+    --stone-mid:   #6b5c54;
+    --stone-light: #a89990;
+    --border:      #e2d5c4;
+    --white:       #ffffff;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body { font-family: 'Nunito Sans', sans-serif; font-weight: 300; color: var(--stone); background: var(--white); line-height: 1.75; }
+  a { color: inherit; text-decoration: none; }
+
+  .label { font-size: 0.65rem; font-weight: 600; letter-spacing: 0.18em; text-transform: uppercase; color: var(--rose); }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    height: 68px; display: flex; align-items: center; justify-content: space-between;
+    padding: 0 5vw;
+    background: rgba(250,246,240,0.97);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+  }
+  .nav-logo {
+    font-family: 'Lora', serif;
+    font-size: 1.05rem;
+    font-weight: 500;
+    color: var(--stone);
+  }
+  .nav-logo em { font-style: italic; color: var(--rose); }
+  .nav-links { display: flex; align-items: center; gap: 2.5rem; }
+  .nav-links a { font-size: 0.82rem; color: var(--stone-mid); transition: color 0.2s; }
+  .nav-links a:hover { color: var(--stone); }
+  .nav-right { display: flex; align-items: center; gap: 1rem; }
+  .lang-row { display: flex; gap: 4px; }
+  .lang-btn { font-size: 0.65rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; background: none; border: 1.5px solid transparent; color: var(--stone-light); padding: 3px 7px; border-radius: 20px; cursor: pointer; transition: all 0.15s; }
+  .lang-btn.active { color: var(--rose); border-color: var(--rose); }
+  .nav-cta { font-size: 0.78rem; font-weight: 600; letter-spacing: 0.04em; color: var(--white); background: var(--rose); padding: 0.6rem 1.4rem; border-radius: 24px; transition: background 0.2s; }
+  .nav-cta:hover { background: var(--rose-deep); }
+  .mobile-controls { display: none; align-items: center; gap: 10px; }
+  .mobile-menu-btn { display: flex; background: none; border: none; cursor: pointer; flex-direction: column; gap: 5px; padding: 4px; }
+  .mobile-menu-btn span { display: block; width: 22px; height: 1.5px; background: var(--stone); border-radius: 2px; }
+
+  /* ── HERO ── */
+  .hero {
+    padding-top: 68px;
+    min-height: 100vh;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    background: var(--warm);
+  }
+  .hero-left {
+    display: flex; flex-direction: column; justify-content: center;
+    padding: 6rem 4rem 6rem 8vw;
+  }
+  .hero-eyebrow { margin-bottom: 1.5rem; }
+  .hero-title {
+    font-family: 'Lora', serif;
+    font-size: clamp(2.4rem, 5vw, 4rem);
+    font-weight: 500;
+    line-height: 1.15;
+    color: var(--stone);
+    margin-bottom: 1.5rem;
+  }
+  .hero-title em { font-style: italic; color: var(--rose); }
+  .hero-sub { font-size: 0.97rem; color: var(--stone-mid); line-height: 1.9; max-width: 40ch; margin-bottom: 2.5rem; }
+  .hero-actions { display: flex; gap: 0.75rem; flex-wrap: wrap; margin-bottom: 3.5rem; }
+  .btn-primary { display: inline-flex; align-items: center; gap: 0.5rem; background: var(--rose); color: var(--white); padding: 0.85rem 1.8rem; font-size: 0.82rem; font-weight: 600; border-radius: 24px; transition: background 0.2s; border: none; cursor: pointer; }
+  .btn-primary:hover { background: var(--rose-deep); }
+  .btn-outline { display: inline-flex; align-items: center; gap: 0.5rem; background: transparent; color: var(--stone-mid); padding: 0.85rem 1.8rem; font-size: 0.82rem; font-weight: 400; border: 1.5px solid var(--border); border-radius: 24px; transition: all 0.2s; cursor: pointer; }
+  .btn-outline:hover { border-color: var(--stone-mid); color: var(--stone); }
+  .hero-stats { display: flex; gap: 2.5rem; padding-top: 2.5rem; border-top: 1px solid var(--border); }
+  .stat-num { font-family: 'Lora', serif; font-size: 2rem; font-weight: 500; color: var(--stone); line-height: 1; }
+  .stat-lbl { font-size: 0.7rem; color: var(--stone-light); margin-top: 0.25rem; }
+
+  .hero-right {
+    position: relative;
+    background: var(--warm-dark);
+    overflow: hidden;
+  }
+  .hero-photo-placeholder {
+    width: 100%; height: 100%;
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    gap: 1rem;
+    background: linear-gradient(135deg, var(--warm-dark) 0%, var(--sand) 100%);
+    padding: 3rem;
+  }
+  .hero-photo-icon { font-size: 4rem; color: var(--stone-light); opacity: 0.3; }
+  .hero-photo-hint { font-size: 0.78rem; color: var(--stone-light); text-align: center; max-width: 24ch; line-height: 1.6; }
+  .hero-times-card {
+    position: absolute; bottom: 2.5rem; left: 2.5rem; right: 2.5rem;
+    background: rgba(250,246,240,0.96);
+    backdrop-filter: blur(8px);
+    border-radius: 16px;
+    padding: 1.5rem;
+    box-shadow: 0 8px 32px rgba(46,38,32,0.12);
+    border: 1px solid rgba(255,255,255,0.8);
+  }
+  .times-title-sm { margin-bottom: 1rem; }
+  .times-row-sm { display: grid; gap: 1rem; }
+  .times-doc-sm { }
+  .times-doc-name-sm { font-family: 'Lora', serif; font-size: 0.88rem; font-weight: 500; color: var(--stone); }
+  .times-doc-detail-sm { font-size: 0.75rem; color: var(--stone-mid); margin-top: 0.15rem; }
+  .times-ins-sm { display: inline-block; margin-top: 0.3rem; font-size: 0.65rem; letter-spacing: 0.06em; color: var(--rose); background: var(--rose-mist); border: 0.5px solid var(--rose-light); border-radius: 12px; padding: 0.15rem 0.5rem; }
+  .times-contact-sm { margin-top: 1rem; padding-top: 1rem; border-top: 1px solid var(--border); font-size: 0.78rem; color: var(--stone-mid); display: flex; flex-direction: column; gap: 0.25rem; }
+  .times-contact-sm a { color: var(--rose); }
+
+  /* ── LEISTUNGEN ── */
+  .section { padding: 6rem 8vw; }
+  .section-inner { max-width: 1100px; margin: 0 auto; }
+  .section-header { margin-bottom: 3.5rem; }
+  .section-header .label { margin-bottom: 0.75rem; display: block; }
+  .section-title { font-family: 'Lora', serif; font-size: clamp(1.8rem, 3.5vw, 2.8rem); font-weight: 500; line-height: 1.2; color: var(--stone); }
+
+  .services-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 1.25rem; }
+  .service-card {
+    background: var(--warm);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 1.8rem;
+    display: flex; flex-direction: column; gap: 0.75rem;
+    transition: all 0.2s;
+  }
+  .service-card:hover { background: var(--white); box-shadow: 0 4px 24px rgba(46,38,32,0.08); transform: translateY(-2px); }
+  .service-icon { font-size: 1.6rem; color: var(--rose); }
+  .service-name { font-family: 'Lora', serif; font-size: 1rem; font-weight: 500; color: var(--stone); }
+  .service-desc { font-size: 0.8rem; color: var(--stone-light); line-height: 1.65; }
+
+  /* ── TEAM ── */
+  .team-section { padding: 6rem 8vw; background: var(--warm); }
+  .team-inner { max-width: 1100px; margin: 0 auto; }
+  .team-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 2rem; margin-top: 3.5rem; }
+  .team-card { background: var(--white); border-radius: 20px; overflow: hidden; border: 1px solid var(--border); }
+  .team-photo {
+    width: 100%; aspect-ratio: 4/5;
+    background: linear-gradient(135deg, var(--warm-dark) 0%, var(--sand) 100%);
+    display: flex; align-items: center; justify-content: center;
+    position: relative;
+  }
+  .team-initials { font-family: 'Lora', serif; font-size: 5rem; font-style: italic; font-weight: 500; color: rgba(46,38,32,0.15); }
+  .team-color-bar { position: absolute; bottom: 0; left: 0; right: 0; height: 4px; border-radius: 0 0 0 0; }
+  .team-info { padding: 1.8rem; }
+  .team-role { margin-bottom: 0.35rem; }
+  .team-name { font-family: 'Lora', serif; font-size: 1.35rem; font-weight: 500; color: var(--stone); margin-bottom: 0.75rem; }
+  .team-bio { font-size: 0.85rem; color: var(--stone-mid); line-height: 1.85; margin-bottom: 1.2rem; }
+  .team-tags { display: flex; flex-wrap: wrap; gap: 0.4rem; }
+  .team-tag { font-size: 0.7rem; background: var(--warm); border: 1px solid var(--border); border-radius: 12px; padding: 0.2rem 0.7rem; color: var(--stone-mid); }
+
+  /* ── PORTAL ── */
+  .portal-section { padding: 6rem 8vw; background: var(--stone); position: relative; overflow: hidden; }
+  .portal-bg { position: absolute; inset: 0; background: radial-gradient(ellipse at 30% 50%, rgba(193,127,90,0.15) 0%, transparent 60%), radial-gradient(ellipse at 80% 30%, rgba(184,92,110,0.1) 0%, transparent 50%); }
+  .portal-inner { max-width: 1100px; margin: 0 auto; position: relative; z-index: 1; display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: center; }
+  .portal-text .label { color: var(--terra); margin-bottom: 1rem; display: block; }
+  .portal-title { font-family: 'Lora', serif; font-size: clamp(2rem, 4vw, 3rem); font-weight: 500; line-height: 1.2; color: var(--white); margin-bottom: 1.2rem; }
+  .portal-title em { font-style: italic; color: var(--terra); }
+  .portal-sub { font-size: 0.92rem; color: rgba(255,255,255,0.55); line-height: 1.85; margin-bottom: 2rem; }
+  .portal-features { display: flex; flex-direction: column; gap: 0.75rem; margin-bottom: 2.5rem; }
+  .portal-feature { display: flex; align-items: center; gap: 0.75rem; font-size: 0.85rem; color: rgba(255,255,255,0.65); }
+  .portal-check { width: 18px; height: 18px; border-radius: 50%; background: rgba(193,127,90,0.25); border: 1px solid var(--terra); display: flex; align-items: center; justify-content: center; flex-shrink: 0; font-size: 0.6rem; color: var(--terra); }
+  .portal-visual { background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.12); border-radius: 20px; padding: 3rem; text-align: center; display: flex; flex-direction: column; align-items: center; gap: 1.5rem; }
+  .portal-icon-big { font-size: 3.5rem; color: var(--terra); }
+  .portal-badge-text { font-family: 'Lora', serif; font-size: 1.1rem; font-style: italic; color: rgba(255,255,255,0.5); }
+
+  /* ── REVIEWS ── */
+  .reviews-section { padding: 5rem 8vw; background: var(--warm-dark); }
+  .reviews-inner { max-width: 1100px; margin: 0 auto; }
+  .reviews-header { margin-bottom: 3rem; }
+  .reviews-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 1.25rem; }
+  .review-card { background: var(--white); border-radius: 16px; padding: 1.8rem; display: flex; flex-direction: column; gap: 1rem; border: 1px solid var(--border); }
+  .review-stars { color: #f59e0b; font-size: 0.9rem; letter-spacing: 3px; }
+  .review-text { font-family: 'Lora', serif; font-size: 0.97rem; font-style: italic; color: var(--stone); line-height: 1.75; flex: 1; }
+  .review-footer { display: flex; justify-content: space-between; align-items: center; }
+  .review-name { font-size: 0.8rem; font-weight: 600; color: var(--stone); }
+  .review-date { font-size: 0.7rem; color: var(--stone-light); }
+
+  /* ── KONTAKT ── */
+  .contact-section { padding: 6rem 8vw; background: var(--white); }
+  .contact-inner { max-width: 1100px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; }
+  .contact-block { margin-bottom: 2rem; }
+  .contact-block .label { display: block; margin-bottom: 0.6rem; }
+  .contact-block p { font-size: 0.9rem; color: var(--stone-mid); line-height: 1.9; }
+  .contact-block a { color: var(--rose); }
+  .contact-map { border-radius: 20px; overflow: hidden; border: 1px solid var(--border); min-height: 380px; }
+  .contact-map iframe { width: 100%; height: 100%; min-height: 380px; border: 0; }
+
+  /* ── FOOTER ── */
+  footer { padding: 2.5rem 8vw; background: var(--warm); border-top: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem; }
+  .footer-logo { font-family: 'Lora', serif; font-size: 0.92rem; font-style: italic; color: var(--stone-mid); }
+  .footer-links { display: flex; gap: 2rem; }
+  .footer-links a { font-size: 0.78rem; color: var(--stone-light); transition: color 0.2s; }
+  .footer-links a:hover { color: var(--rose); }
+  .footer-lang { display: flex; gap: 4px; }
+  .footer-lang a { font-size: 0.65rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--stone-light); padding: 3px 8px; border: 1.5px solid transparent; border-radius: 12px; transition: all 0.15s; }
+  .footer-lang a.active { color: var(--rose); border-color: var(--rose); }
+
+  /* ── MODALS ── */
+  .modal-backdrop { display: none; position: fixed; inset: 0; z-index: 200; background: rgba(46,38,32,0.6); backdrop-filter: blur(4px); align-items: center; justify-content: center; padding: 2rem; }
+  .modal-backdrop.open { display: flex; }
+  .modal-box { background: var(--white); max-width: 680px; width: 100%; max-height: 85vh; overflow-y: auto; border-radius: 20px; box-shadow: 0 20px 60px rgba(46,38,32,0.2); }
+  .modal-header { display: flex; justify-content: space-between; align-items: center; padding: 1.75rem 2rem; border-bottom: 1px solid var(--border); position: sticky; top: 0; background: var(--white); border-radius: 20px 20px 0 0; }
+  .modal-header h2 { font-family: 'Lora', serif; font-size: 1.3rem; font-weight: 500; }
+  .modal-close { background: none; border: none; cursor: pointer; font-size: 1.2rem; color: var(--stone-light); padding: 4px; }
+  .modal-body { padding: 2rem; font-size: 0.88rem; color: var(--stone-mid); line-height: 1.9; }
+  .modal-body h3 { font-family: 'Lora', serif; font-size: 1.05rem; font-weight: 500; color: var(--stone); margin: 1.5rem 0 0.5rem; }
+  .modal-body h3:first-child { margin-top: 0; }
+  .modal-body p { margin-bottom: 0.75rem; }
+  .modal-body a { color: var(--rose); }
+
+  @media (max-width: 900px) {
+    .hero { grid-template-columns: 1fr; min-height: auto; }
+    .hero-left { padding: 4rem 6vw 3rem; }
+    .hero-right { min-height: 320px; }
+    .portal-inner { grid-template-columns: 1fr; gap: 3rem; }
+    .contact-inner { grid-template-columns: 1fr; }
+    .nav-links { display: none; }
+    .nav-right { display: none; }
+    .mobile-controls { display: flex; }
+    footer { flex-direction: column; align-items: flex-start; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo" id="nav-logo">Ordination <em>Dr.</em></div>
+  <div class="nav-links" id="nav-links">
+    <a href="#leistungen" id="nav-services">Leistungen</a>
+    <a href="#team" id="nav-about">Über uns</a>
+    <a href="#kontakt" id="nav-contact">Kontakt</a>
+  </div>
+  <div class="nav-right">
+    <div class="lang-row" id="lang-row-desktop"></div>
+    <a href="#" id="nav-portal-btn" class="nav-cta portal-link" target="_blank" rel="noopener noreferrer">Portal</a>
+  </div>
+  <div class="mobile-controls">
+    <div class="lang-row" id="lang-row-mobile"></div>
+    <button class="mobile-menu-btn" onclick="toggleMenu()"><span></span><span></span><span></span></button>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-left">
+    <div class="hero-eyebrow"><span class="label" id="hero-eyebrow"></span></div>
+    <h1 class="hero-title" id="hero-title"></h1>
+    <p class="hero-sub" id="hero-sub"></p>
+    <div class="hero-actions">
+      <a href="#" id="hero-cta1" class="btn-primary portal-link" target="_blank" rel="noopener noreferrer"></a>
+      <a href="#team" id="hero-cta2" class="btn-outline"></a>
+    </div>
+    <div class="hero-stats" id="hero-stats"></div>
+  </div>
+  <div class="hero-right">
+    <div class="hero-photo-placeholder">
+      <i class="ti ti-camera hero-photo-icon"></i>
+      <p class="hero-photo-hint">Hier kommt ein Foto der Ordination oder des Ärzteteams</p>
+    </div>
+    <div class="hero-times-card">
+      <div class="times-title-sm"><span class="label" id="times-title"></span></div>
+      <div class="times-row-sm" id="times-rows"></div>
+      <div class="times-contact-sm" id="times-contact"></div>
+    </div>
+  </div>
+</section>
+
+<!-- LEISTUNGEN -->
+<section class="section" id="leistungen" style="background:var(--white)">
+  <div class="section-inner">
+    <div class="section-header">
+      <span class="label" id="services-eyebrow"></span>
+      <h2 class="section-title" id="services-title"></h2>
+    </div>
+    <div class="services-grid" id="services-grid"></div>
+  </div>
+</section>
+
+<!-- TEAM -->
+<section class="team-section" id="team">
+  <div class="team-inner">
+    <div class="section-header">
+      <span class="label" id="team-eyebrow"></span>
+      <h2 class="section-title" id="team-title"></h2>
+    </div>
+    <div class="team-grid" id="team-grid"></div>
+  </div>
+</section>
+
+<!-- PORTAL -->
+<section class="portal-section" id="portal">
+  <div class="portal-bg"></div>
+  <div class="portal-inner">
+    <div class="portal-text">
+      <span class="label" id="portal-eyebrow"></span>
+      <h2 class="portal-title" id="portal-title"></h2>
+      <p class="portal-sub" id="portal-sub"></p>
+      <div class="portal-features" id="portal-features"></div>
+      <a href="#" id="portal-cta" class="btn-primary portal-link" target="_blank" rel="noopener noreferrer"></a>
+    </div>
+    <div class="portal-visual">
+      <i class="ti ti-device-mobile portal-icon-big"></i>
+      <p class="portal-badge-text" id="portal-badge"></p>
+      <a href="#" id="portal-overlay-btn" class="btn-primary portal-link" target="_blank" rel="noopener noreferrer" style="display:inline-flex"></a>
+    </div>
+  </div>
+</section>
+
+<!-- REVIEWS -->
+<section class="reviews-section" id="reviews" style="display:none">
+  <div class="reviews-inner">
+    <div class="reviews-header">
+      <span class="label">Bewertungen</span>
+      <h2 class="section-title">Was unsere Patientinnen<br>über uns sagen.</h2>
+    </div>
+    <div class="reviews-grid" id="reviews-grid"></div>
+  </div>
+</section>
+
+<!-- KONTAKT -->
+<section class="contact-section" id="kontakt">
+  <div class="contact-inner">
+    <div>
+      <div class="section-header">
+        <span class="label" id="contact-eyebrow"></span>
+        <h2 class="section-title" id="contact-title"></h2>
+      </div>
+      <div class="contact-block"><span class="label" id="contact-addr-title"></span><p id="contact-addr"></p></div>
+      <div class="contact-block"><span class="label" id="contact-tel-title"></span><p id="contact-tel"></p></div>
+      <div class="contact-block"><span class="label" id="contact-times-title"></span><p id="contact-times"></p></div>
+      <a href="#" id="contact-cta" class="btn-primary portal-link" target="_blank" rel="noopener noreferrer" style="margin-top:0.5rem;display:inline-flex"></a>
+    </div>
+    <div class="contact-map"><iframe id="maps-iframe" src="" allowfullscreen loading="lazy" referrerpolicy="no-referrer-when-downgrade" sandbox="allow-scripts allow-same-origin"></iframe></div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo" id="footer-logo"></div>
+  <div class="footer-links">
+    <a href="#" id="footer-impressum" onclick="openModal('impressum');return false;"></a>
+    <a href="#" id="footer-datenschutz" onclick="openModal('datenschutz');return false;"></a>
+    <a href="#" id="footer-partner" onclick="openModal('partner');loadPartners();return false;"></a>
+  </div>
+  <div class="footer-lang" id="footer-lang"></div>
+</footer>
+
+<!-- MODALS -->
+<div class="modal-backdrop" id="modal-impressum" onclick="if(event.target===this)closeModal()">
+  <div class="modal-box"><div class="modal-header"><h2 id="modal-impressum-title">Impressum</h2><button class="modal-close" onclick="closeModal()">✕</button></div><div class="modal-body" id="modal-impressum-body"></div></div>
+</div>
+<div class="modal-backdrop" id="modal-datenschutz" onclick="if(event.target===this)closeModal()">
+  <div class="modal-box"><div class="modal-header"><h2 id="modal-datenschutz-title">Datenschutz</h2><button class="modal-close" onclick="closeModal()">✕</button></div><div class="modal-body" id="modal-datenschutz-body"></div></div>
+</div>
+<div class="modal-backdrop" id="modal-partner" onclick="if(event.target===this)closeModal()">
+  <div class="modal-box" style="max-width:720px"><div class="modal-header"><h2 id="modal-partner-title">Partner</h2><button class="modal-close" onclick="closeModal()">✕</button></div><div class="modal-body"><div id="partner-list"></div></div></div>
+</div>
+
+<script>
+const _p = new URLSearchParams(window.location.search);
+const _urlLang = _p.get('lang');
+const _urlColor = _p.get('color');
+let lang = (ORDI_CONFIG.languages||['de']).includes(_urlLang) ? _urlLang : (ORDI_CONFIG.defaultLang||'de');
+if (_urlColor) ORDI_CONFIG.colorPrimary = decodeURIComponent(_urlColor);
+
+function t(obj) {
+  if (!obj) return '';
+  if (typeof obj === 'string') return obj;
+  return obj[lang] || obj['de'] || '';
+}
+
+function applyColors() {
+  const r = document.documentElement.style;
+  r.setProperty('--rose', ORDI_CONFIG.colorPrimary || '#b85c6e');
+  r.setProperty('--rose-deep', ORDI_CONFIG.colorPrimaryDark || '#8a3f51');
+  r.setProperty('--rose-light', ORDI_CONFIG.colorPrimaryLight || '#f7eef0');
+  r.setProperty('--rose-mist', ORDI_CONFIG.colorPrimaryMist || '#fdf5f6');
+}
+
+function buildLangBtns() {
+  const langs = ORDI_CONFIG.languages || ['de'];
+  if (langs.length < 2) return;
+  const html = langs.map(l =>
+    '<button class="lang-btn' + (l===lang?' active':'') + '" onclick="setLang(\'' + l + '\')">' + l.toUpperCase() + '</button>'
+  ).join('');
+  ['lang-row-desktop','lang-row-mobile'].forEach(id => {
+    const el = document.getElementById(id);
+    if (el) el.innerHTML = html;
+  });
+}
+
+function renderPage() {
+  const C = ORDI_CONFIG;
+  const TX = C.texts || {};
+  document.title = C.name + ' – ' + C.specialty;
+  document.documentElement.lang = lang;
+
+  const portalUrl = C.portalUrl ? C.portalUrl + '?lang=' + lang : '#';
+  document.querySelectorAll('.portal-link').forEach(a => { a.href = portalUrl; if (!C.portalUrl) a.style.display='none'; });
+
+  // Nav
+  document.getElementById('nav-logo').innerHTML = C.name.replace(/(\S+)\s+(.+)/, '$1 <em>$2</em>');
+  document.getElementById('nav-services').textContent = t(TX.nav?.services) || 'Leistungen';
+  document.getElementById('nav-about').textContent = t(TX.nav?.about) || 'Über uns';
+  document.getElementById('nav-contact').textContent = t(TX.nav?.contact) || 'Kontakt';
+  const nb = document.getElementById('nav-portal-btn');
+  if (nb) { nb.textContent = t(TX.nav?.portal) || 'Portal'; if (!C.portalUrl) nb.style.display='none'; }
+
+  // Hero
+  document.getElementById('hero-eyebrow').textContent = t(TX.hero?.eyebrow) || C.specialty;
+  document.getElementById('hero-title').innerHTML = t(TX.hero?.h1) || C.name;
+  document.getElementById('hero-sub').textContent = t(TX.hero?.sub) || '';
+  document.getElementById('hero-cta1').textContent = t(TX.hero?.cta1) || 'Termin anfragen';
+  document.getElementById('hero-cta2').textContent = t(TX.hero?.cta2) || 'Mehr erfahren';
+  document.getElementById('hero-stats').innerHTML = (C.stats||[]).map(s =>
+    '<div><div class="stat-num">' + s.number + '</div><div class="stat-lbl">' + t(s.label) + '</div></div>'
+  ).join('');
+
+  // Times card
+  document.getElementById('times-title').textContent = t(TX.contact?.times_title) || 'Ordinationszeiten';
+  document.getElementById('times-rows').innerHTML = C.doctors.map(d =>
+    '<div class="times-doc-sm">' +
+    '<div class="times-doc-name-sm">' + d.title + ' ' + d.name + '</div>' +
+    '<div class="times-doc-detail-sm">' + t(d.days) + ' · ' + t(d.hours) + '</div>' +
+    '<span class="times-ins-sm">' + t(d.insurance) + '</span>' +
+    '</div>'
+  ).join('');
+  document.getElementById('times-rows').style.gridTemplateColumns = C.doctors.length > 1 ? '1fr 1fr' : '1fr';
+  document.getElementById('times-contact').innerHTML =
+    '<span>📞 <a href="tel:' + C.phone + '">' + C.phone + '</a></span>' +
+    '<span>✉ <a href="mailto:' + C.email + '">' + C.email + '</a></span>';
+
+  // Leistungen
+  document.getElementById('services-eyebrow').textContent = t(TX.services?.eyebrow) || 'Leistungen';
+  document.getElementById('services-title').innerHTML = t(TX.services?.h2) || 'Unser Angebot';
+  document.getElementById('services-grid').innerHTML = (C.services||[]).map(s =>
+    '<div class="service-card"><i class="ti ' + s.icon + ' service-icon"></i><div class="service-name">' + t(s.name) + '</div><div class="service-desc">' + t(s.desc) + '</div></div>'
+  ).join('');
+
+  // Team
+  document.getElementById('team-eyebrow').textContent = t(TX.team?.eyebrow) || 'Das Team';
+  document.getElementById('team-title').innerHTML = t(TX.team?.h2) || 'Ihre Ärzte';
+  document.getElementById('team-grid').innerHTML = C.doctors.map(d =>
+    '<div class="team-card">' +
+    '<div class="team-photo"><div class="team-initials">' + d.initials + '</div><div class="team-color-bar" style="background:' + d.color + '"></div></div>' +
+    '<div class="team-info"><div class="team-role"><span class="label">' + t(d.role) + '</span></div>' +
+    '<div class="team-name">' + d.title + ' ' + d.name + '</div>' +
+    '<div class="team-bio">' + t(d.bio) + '</div>' +
+    '<div class="team-tags">' + (t(d.tags)||[]).map(tag => '<span class="team-tag">'+tag+'</span>').join('') + '</div></div>' +
+    '</div>'
+  ).join('');
+
+  // Portal
+  if (C.portalUrl) {
+    document.getElementById('portal-eyebrow').textContent = t(TX.portal?.eyebrow) || 'Online Portal';
+    document.getElementById('portal-title').innerHTML = t(TX.portal?.h2) || 'Jetzt online.';
+    document.getElementById('portal-sub').textContent = t(TX.portal?.sub) || '';
+    document.getElementById('portal-features').innerHTML = (t(TX.portal?.features)||[]).map(f =>
+      '<div class="portal-feature"><div class="portal-check">✓</div>' + f + '</div>'
+    ).join('');
+    document.getElementById('portal-cta').textContent = t(TX.portal?.cta) || 'Portal öffnen';
+    document.getElementById('portal-badge').textContent = t(TX.portal?.badge) || '';
+    document.getElementById('portal-overlay-btn').textContent = t(TX.portal?.cta) || 'Zum Portal';
+  } else {
+    const ps = document.querySelector('.portal-section');
+    if (ps) ps.style.display = 'none';
+  }
+
+  // Reviews
+  const reviews = C.reviews || [];
+  const s = C.sections || {};
+  const rs = document.getElementById('reviews');
+  if (rs && s.reviews !== false && reviews.length > 0) {
+    rs.style.display = 'block';
+    document.getElementById('reviews-grid').innerHTML = reviews.map(r => {
+      const stars = '★'.repeat(r.stars) + '☆'.repeat(5-r.stars);
+      return '<div class="review-card"><div class="review-stars">'+stars+'</div><div class="review-text">'+r.text+'</div><div class="review-footer"><span class="review-name">'+r.name+'</span><span class="review-date">'+(r.date||'')+'</span></div></div>';
+    }).join('');
+  }
+
+  // Kontakt
+  document.getElementById('contact-eyebrow').textContent = t(TX.contact?.eyebrow) || 'Kontakt';
+  document.getElementById('contact-title').innerHTML = t(TX.contact?.h2) || 'Besuchen Sie uns';
+  document.getElementById('contact-addr-title').textContent = t(TX.contact?.addr_title) || 'Adresse';
+  document.getElementById('contact-addr').innerHTML = C.address + '<br>' + C.zip + ' ' + C.cityName + (C.mapsHint ? '<br><br>' + C.mapsHint : '');
+  document.getElementById('contact-tel-title').textContent = t(TX.contact?.tel_title) || 'Telefon & E-Mail';
+  document.getElementById('contact-tel').innerHTML = '<a href="tel:' + C.phone + '">' + C.phone + '</a> (' + (t(TX.contact?.tel_hours)||'') + ')<br><a href="mailto:' + C.email + '">' + C.email + '</a>';
+  document.getElementById('contact-times-title').textContent = t(TX.contact?.times_title) || 'Zeiten';
+  document.getElementById('contact-times').innerHTML = C.doctors.map(d =>
+    '<strong>' + d.title + ' ' + d.name + '</strong><br>' + t(d.days) + ', ' + t(d.hours)
+  ).join('<br><br>');
+  document.getElementById('contact-cta').textContent = t(TX.contact?.cta) || 'Termin anfragen';
+  if (C.mapsEmbed) document.getElementById('maps-iframe').src = C.mapsEmbed;
+
+  // Footer
+  document.getElementById('footer-logo').innerHTML = '<em>' + C.name + '</em> · ' + C.specialty;
+  document.getElementById('footer-impressum').textContent = t(TX.footer?.impressum) || 'Impressum';
+  document.getElementById('footer-datenschutz').textContent = t(TX.footer?.datenschutz) || 'Datenschutz';
+  document.getElementById('footer-partner').textContent = t(TX.footer?.partner) || 'Partner';
+  document.getElementById('footer-lang').innerHTML = (C.languages||['de']).map(l =>
+    '<a href="#" onclick="setLang(\'' + l + '\');return false;" class="' + (l===lang?'active':'') + '">' + l.toUpperCase() + '</a>'
+  ).join('');
+
+  // Impressum modal
+  const IMP = C.impressum || {};
+  document.getElementById('modal-impressum-title').textContent = t(TX.footer?.impressum)||'Impressum';
+  document.getElementById('modal-impressum-body').innerHTML =
+    '<h3>Angaben gemäß § 5 ECG</h3><p><strong>'+(IMP.name||C.name)+'</strong><br>'+(IMP.title||C.specialty)+'<br>'+(IMP.address||C.address+', '+C.zip+' '+C.cityName)+'</p>'+
+    '<h3>Kontakt</h3><p>Tel: <a href="tel:'+C.phone+'">'+C.phone+'</a><br>E-Mail: <a href="mailto:'+C.email+'">'+C.email+'</a></p>'+
+    '<h3>Berufsrecht</h3><p>'+(IMP.chamber||'Ärztekammer für Wien')+'</p>'+
+    '<p style="margin-top:1.5rem;font-size:0.78rem;color:var(--stone-light)">Stand: '+new Date().getFullYear()+'</p>';
+  document.getElementById('modal-datenschutz-title').textContent = t(TX.footer?.datenschutz)||'Datenschutz';
+  document.getElementById('modal-datenschutz-body').innerHTML =
+    '<h3>Verantwortliche</h3><p><strong>'+C.name+'</strong><br>'+C.address+', '+C.zip+' '+C.cityName+'<br><a href="mailto:'+C.email+'">'+C.email+'</a></p>'+
+    '<h3>Grundsatz</h3><p>Wir verarbeiten Ihre Daten auf Grundlage der DSGVO.</p>'+
+    '<h3>Google Maps</h3><p><a href="https://policies.google.com/privacy" target="_blank">Google Datenschutz</a>.</p>'+
+    '<p style="margin-top:1.5rem;font-size:0.78rem;color:var(--stone-light)">Stand: '+new Date().getFullYear()+'</p>';
+  document.getElementById('modal-partner-title').textContent = t(TX.footer?.partner)||'Partner';
+
+  // Lang active state
+  document.querySelectorAll('.lang-btn').forEach(b => b.classList.toggle('active', b.textContent.toLowerCase()===lang));
+  document.querySelectorAll('.footer-lang a').forEach(a => a.classList.toggle('active', a.textContent.toLowerCase()===lang));
+
+  // Sections
+  if ((s.stats===false)) { const el=document.getElementById('hero-stats'); if(el) el.style.display='none'; }
+  if ((s.team===false)) { const el=document.getElementById('team'); if(el) el.style.display='none'; }
+}
+
+function setLang(l) { lang=l; renderPage(); }
+function openModal(w) { document.getElementById('modal-'+w).classList.add('open'); document.body.style.overflow='hidden'; }
+function closeModal() { document.querySelectorAll('.modal-backdrop').forEach(m=>m.classList.remove('open')); document.body.style.overflow=''; }
+document.addEventListener('keydown', e => { if(e.key==='Escape') closeModal(); });
+
+async function loadPartners() {
+  var c=document.getElementById('partner-list');
+  if (!c||c.dataset.loaded==='true') return;
+  c.innerHTML='<p style="color:var(--stone-light)">Wird geladen…</p>';
+  try {
+    var r=await fetch((ORDI_CONFIG.portalUrl||'').replace('frontend','backend').replace('-frontend','')+'/partners/public');
+    var d=await r.json();
+    c.innerHTML=(d.data||[]).map(p=>
+      '<div style="background:var(--warm);border:1px solid var(--border);border-radius:12px;padding:1.2rem 1.4rem;margin-bottom:1rem">'+
+      (p.specialty?'<div class="label" style="margin-bottom:0.3rem">'+p.specialty+'</div>':'')+
+      '<div style="font-family:Lora,serif;font-size:1.1rem">'+p.name+'</div>'+
+      (p.notes?'<div style="font-size:0.8rem;color:var(--stone-mid);margin-top:0.2rem">'+p.notes+'</div>':'')+
+      (p.address?'<div style="font-size:0.8rem;color:var(--stone-light);margin-top:0.4rem">📍 '+p.address+'</div>':'')+
+      '</div>'
+    ).join('');
+    c.dataset.loaded='true';
+  } catch(e) { c.innerHTML='<p>Nicht verfügbar.</p>'; }
+}
+
+function toggleMenu() {
+  const l=document.getElementById('nav-links');
+  if(l.style.display==='flex') l.style.display='none';
+  else l.style.cssText='display:flex;flex-direction:column;position:fixed;top:68px;left:0;right:0;background:var(--warm);padding:1.5rem 6vw;gap:1.5rem;border-bottom:1px solid var(--border);z-index:99;box-shadow:0 4px 20px rgba(46,38,32,0.08)';
+}
+
+window.onload = function() { applyColors(); buildLangBtns(); renderPage(); };
+</script>
+</body>
+</html>
